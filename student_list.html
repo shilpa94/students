@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  </style>
+ </head> 
+
+  <body>
+    <table  style="width:100%">
+      <tr>
+        <th><input type="checkbox" id = "select_all"> Select all</th>
+        <th>Roll no:</th> 
+        <th>Firstname</th>
+        <th>sub1:</th> 
+        <th>sub2</th>
+        <th>sub3:</th> 
+        <th>sub4</th>
+        <th>sub5:</th> 
+        <th>sub6</th>
+        <th>Total/600:</th> 
+      </tr>
+      <tr>
+        <td><input type="checkbox"class="cb" id="checkbox"></td>
+        <td>1</td>
+        <td>Shilpa</td>
+        <td>20</td>
+        <td>20</td>
+        <td>20</td>
+        <td>20</td>
+        <td>20</td>
+        <td>20</td>
+        <td class="last">  </td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class = "cb"  id="checkbox"></td>
+        <td>2</td>
+        <td>Sachin</td>
+        <td>30</td>
+        <td>30</td>
+        <td>30</td>
+        <td>30</td>
+        <td>30</td>
+        <td>30</td>
+        <td class="last">  </td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class = "cb" id="checkbox"></td>
+        <td>3</td>
+        <td>Surya</td>
+        <td>40</td>
+        <td>40</td>
+        <td>40</td>
+        <td>40</td>
+        <td>40</td>
+        <td>40</td>
+        <td class="last"></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class = "cb" id="checkbox"></td>
+        <td>4</td>
+        <td>drishya</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50</td>
+        <td class="last"></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class = "cb" id="checkbox"></td>
+        <td>5</td>
+        <td>Pinky</td>
+        <td>60</td>
+        <td>60</td>
+        <td>60</td>
+        <td>60</td>
+        <td>60</td>
+        <td>60</td>
+        <td class="last"></td>
+      </tr>
+    </table>
+
+    Total students selected:<p id = "selected_students"></p>
+    Total marks of selected students:<p id = "total_marks"></p>
+    Total percentage:<p id = "percentage"></p>
+
+    <script type="text/javascript">
+
+      var selected_students = 0;
+      var  percentage = 0;
+     
+      $("#select_all").click(function () {
+        $(".cb").prop('checked', $(this).prop('checked'));
+        calculate();
+      });
+     
+      $(".cb").click(function(){
+        calculate();
+      });
+
+      function calculate() {
+        var total_marks = 0;
+       
+        $("#checkbox:checked").each(function () {
+          var each_total = 0;
+          var row = $(this).closest("tr")[0];
+          for(var i = 3; i < 9; i++){
+          each_total+= parseInt(row.cells[i].innerHTML);
+          }
+          $(this).closest("tr").find(".last").html(each_total);
+          total_marks += each_total;
+        });
+
+        selected_students = $("#checkbox:checked").length;
+        $("#selected_students").html(selected_students); 
+        $("#total_marks").html(total_marks); 
+        percentage = (total_marks*100)/(selected_students*600);
+        $("#percentage").html(percentage);
+
+        $('.cb').not(':checked').each(function(){
+         $(this).closest("tr").find(".last").html('');
+        }); 
+      }
+
+    </script>
+  </body>
+</html>
